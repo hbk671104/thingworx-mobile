@@ -23,11 +23,12 @@ const dvaInit = options => {
 
 import Router, { routerMiddleware, routerReducer } from './router'
 import userModel from './model/user'
+import deviceModel from './model/device'
 import { name as appName } from '../app.json'
 
 const app = dvaInit({
     initialState: {},
-    models: [userModel],
+    models: [userModel, deviceModel],
     extraReducers: { router: routerReducer },
     onAction: [routerMiddleware],
     onError(e) {

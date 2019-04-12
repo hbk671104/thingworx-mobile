@@ -8,7 +8,9 @@ export default {
         *login({ payload }, { call, put }) {
             yield put(NavigationActions.navigate({ routeName: 'Main' }))
         },
-        *logout(action, { call, put }) {}
+        *logout(action, { call, put }) {
+            yield put(NavigationActions.navigate({ routeName: 'Login' }))
+        }
     },
     subscriptions: {}
 }
