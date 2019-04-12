@@ -10,14 +10,17 @@
     },
     "dependencies": {
         "dva-core": "^1.4.0",
+        "dva-loading": "^3.0.2",
         "ramda": "^0.26.1",
         "react": "16.8.3",
         "react-native": "0.59.4",
         "react-native-gesture-handler": "^1.1.0",
+        "react-native-svg": "^9.3.7",
         "react-native-typography": "^1.4.0",
         "react-navigation": "^3.7.1",
         "react-navigation-redux-helpers": "^3.0.2",
-        "react-redux": "^7.0.1"
+        "react-redux": "^7.0.1",
+        "victory-native": "^32.0.2"
     },
     "devDependencies": {
         "@babel/core": "^7.4.3",

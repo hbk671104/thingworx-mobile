@@ -4,12 +4,16 @@ import { human, iOSColors } from 'react-native-typography'
 import R from 'ramda'
 import StatusIndicator from 'component/status_indicator'
 
-const deviceItem = ({ data }) => {
+const deviceItem = ({ data, onPress }) => {
     const is_abnormal = R.pathOr(false, ['is_abnormal'])(data)
-    const temperature = R.pathOr('', ['temperature'])(data)
-    const cpu_usage = R.pathOr('', ['cpu_usage'])(data)
+    const temperature = R.pathOr(0, ['temperature'])(data)
+    const cpu_usage = R.pathOr(0, ['cpu_usage'])(data)
     return (
-        <TouchableOpacity disabled={!is_abnormal} style={styles.container}>
+        <TouchableOpacity
+            disabled={!is_abnormal}
+            style={styles.container}
+            onPress={onPress}
+        >
             <StatusIndicator abnormal={is_abnormal} />
             <View style={styles.content.wrapper}>
                 <View style={{ flex: 1 }}>
@@ -21,10 +25,13 @@ const deviceItem = ({ data }) => {
                         <Text style={{ fontWeight: 'bold' }}>
                             {temperature}
                         </Text>
+                        °C
                     </Text>
                     <Text style={styles.content.text}>
                         CPU使用率：
-                        <Text style={{ fontWeight: 'bold' }}>{cpu_usage}</Text>
+                        <Text style={{ fontWeight: 'bold' }}>
+                            {cpu_usage * 100}%
+                        </Text>
                     </Text>
                 </View>
             </View>

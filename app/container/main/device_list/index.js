@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { View, Text, Button, FlatList } from 'react-native'
+import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
 import R from 'ramda'
 
@@ -17,20 +18,37 @@ class DeviceList extends PureComponent {
 
     componentWillMount() {
         this.props.navigation.setParams({
-            logout: this.logout
+            logout: this.handleLogout
         })
     }
 
-    logout = () => {
+    handleLogout = () => {
         this.props.dispatch({ type: 'user/logout' })
     }
 
-    renderItem = ({ item }) => <DeviceItem data={item} />
+    handleItemPress = data => () => {
+        this.props.dispatch(
+            NavigationActions.navigate({
+                routeName: 'DeviceDetail',
+                params: {
+                    data
+                }
+            })
+        )
+    }
+
+    handleRefresh = () => {
+        this.props.dispatch({ type: 'device/fetch' })
+    }
+
+    renderItem = ({ item }) => (
+        <DeviceItem data={item} onPress={this.handleItemPress(item)} />
+    )
 
     renderSeparator = () => <View style={styles.separator} />
 
     render() {
-        const { list } = this.props
+        const { list, loading } = this.props
         return (
             <View style={styles.container}>
                 <FlatList
@@ -38,12 +56,15 @@ class DeviceList extends PureComponent {
                     renderItem={this.renderItem}
                     ItemSeparatorComponent={this.renderSeparator}
                     keyExtractor={item => `${item.id}`}
+                    refreshing={loading}
+                    onRefresh={this.handleRefresh}
                 />
             </View>
         )
     }
 }
 
-export default connect(({ device }) => ({
-    list: R.pathOr([], ['list'])(device)
+export default connect(({ device, loading }) => ({
+    list: R.pathOr([], ['list'])(device),
+    loading: loading.global
 }))(DeviceList)

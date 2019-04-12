@@ -2,12 +2,21 @@ import React from 'react'
 import { AppRegistry } from 'react-native'
 import { create } from 'dva-core'
 import { Provider } from 'react-redux'
+import createLoading from 'dva-loading'
 
 const dvaInit = options => {
     const app = create(options)
+
     // HMR workaround
     if (!global.registered) options.models.forEach(model => app.model(model))
     global.registered = true
+
+    // dva-loading
+    app.use(
+        createLoading({
+            only: ['device/fetch']
+        })
+    )
 
     app.start()
     // eslint-disable-next-line no-underscore-dangle
