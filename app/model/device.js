@@ -1,4 +1,5 @@
 import R from 'ramda'
+import { generateDailyRandom } from 'util'
 
 const initialList = [
     {
@@ -17,7 +18,11 @@ const initialList = [
         id: 3,
         is_abnormal: true,
         temperature: 70,
-        cpu_usage: 0.8
+        cpu_usage: 0.8,
+        history: {
+            temperature: generateDailyRandom(),
+            cpu_usage: generateDailyRandom()
+        }
     },
     {
         id: 4,
@@ -29,7 +34,11 @@ const initialList = [
         id: 5,
         is_abnormal: true,
         temperature: 68,
-        cpu_usage: 0.75
+        cpu_usage: 0.75,
+        history: {
+            temperature: generateDailyRandom(),
+            cpu_usage: generateDailyRandom()
+        }
     }
 ]
 

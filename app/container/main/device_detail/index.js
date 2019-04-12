@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import R from 'ramda'
-import { VictoryChart, VictoryPie, VictoryLine } from 'victory-native'
-import { iOSColors } from 'react-native-typography'
+import { VictoryChart, VictoryLine } from 'victory-native'
 
 import styles from './style'
 
@@ -25,6 +24,8 @@ class DeviceDetail extends PureComponent {
         const { data } = this.props
         const temperature = R.pathOr(0, ['temperature'])(data)
         const cpu_usage = R.pathOr(0, ['cpu_usage'])(data)
+        const temp_history = R.pathOr([], ['history', 'temperature'])(data)
+        const cpu_usage_history = R.pathOr([], ['history', 'cpu_usage'])(data)
         return (
             <ScrollView
                 style={styles.container}
@@ -45,13 +46,7 @@ class DeviceDetail extends PureComponent {
                                 data: { stroke: '#c43a31' },
                                 parent: { border: '1px solid #ccc' }
                             }}
-                            data={[
-                                { x: 1, y: 2 },
-                                { x: 2, y: 3 },
-                                { x: 3, y: 5 },
-                                { x: 4, y: 4 },
-                                { x: 5, y: 7 }
-                            ]}
+                            data={temp_history}
                         />
                     </VictoryChart>
                 </View>
@@ -64,29 +59,14 @@ class DeviceDetail extends PureComponent {
                             </Text>
                         </Text>
                     </View>
-                    {/* <VictoryPie
-                        data={[
-                            { x: '已使用', y: cpu_usage },
-                            {
-                                x: '未使用',
-                                y: 1 - cpu_usage
-                            }
-                        ]}
-                        colorScale={[iOSColors.purple, iOSColors.lightGray]}
-                    /> */}
+
                     <VictoryChart>
                         <VictoryLine
                             style={{
                                 data: { stroke: '#c43a31' },
                                 parent: { border: '1px solid #ccc' }
                             }}
-                            data={[
-                                { x: 1, y: 2 },
-                                { x: 2, y: 3 },
-                                { x: 3, y: 5 },
-                                { x: 4, y: 4 },
-                                { x: 5, y: 7 }
-                            ]}
+                            data={cpu_usage_history}
                         />
                     </VictoryChart>
                 </View>
