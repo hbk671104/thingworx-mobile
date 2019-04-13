@@ -12,6 +12,7 @@ import {
 } from 'react-navigation-redux-helpers'
 import { connect } from 'react-redux'
 
+import Landing from './container/landing'
 import Login from './container/login'
 import DeviceList from './container/main/device_list'
 import DeviceDetail from './container/main/device_detail'
@@ -22,6 +23,7 @@ const MainNavigator = createStackNavigator({
 })
 
 const AppNavigator = createSwitchNavigator({
+    Landing,
     Login,
     Main: MainNavigator
 })

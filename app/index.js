@@ -1,8 +1,9 @@
 import React from 'react'
-import { AppRegistry } from 'react-native'
+import { AppRegistry, AsyncStorage } from 'react-native'
 import { create } from 'dva-core'
 import { Provider } from 'react-redux'
 import createLoading from 'dva-loading'
+import { autoRehydrate, persistStore } from 'redux-persist'
 
 const dvaInit = options => {
     const app = create(options)
@@ -39,12 +40,22 @@ const app = dvaInit({
     initialState: {},
     models: [userModel, deviceModel],
     extraReducers: { router: routerReducer },
+    extraEnhancers: [autoRehydrate()],
     onAction: [routerMiddleware],
     onError(e) {
         console.log('onError', e)
     }
 })
 
-const App = app.start(<Router />)
+export const persist = callback => {
+    persistStore(
+        app.getStore(),
+        {
+            storage: AsyncStorage,
+            whitelist: ['user']
+        },
+        callback
+    )
+}
 
-AppRegistry.registerComponent(appName, () => App)
+AppRegistry.registerComponent(appName, () => app.start(<Router />))
