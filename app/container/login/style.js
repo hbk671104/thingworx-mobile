@@ -3,7 +3,7 @@ import { human } from 'react-native-typography'
 export default {
     container: {
         flex: 1,
-        marginTop: 144
+        marginTop: 108
     },
     title: {
         container: {
@@ -25,7 +25,8 @@ export default {
     },
     button: {
         container: {
-            marginTop: 36
+            marginTop: 36,
+            marginHorizontal: 96
         }
     }
 }

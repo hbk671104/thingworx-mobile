@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import R from 'ramda'
-import { VictoryChart, VictoryLine } from 'victory-native'
+import { VictoryChart, VictoryLine, VictoryAxis } from 'victory-native'
 
 import styles from './style'
 
@@ -48,6 +48,8 @@ class DeviceDetail extends PureComponent {
                             }}
                             data={temp_history}
                         />
+                        <VictoryAxis crossAxis tickFormat={t => `${t}:00`} />
+                        <VictoryAxis dependentAxis tickFormat={t => `${t}°C`} />
                     </VictoryChart>
                 </View>
                 <View pointerEvents="none">
@@ -68,6 +70,8 @@ class DeviceDetail extends PureComponent {
                             }}
                             data={cpu_usage_history}
                         />
+                        <VictoryAxis crossAxis tickFormat={t => `${t}:00`} />
+                        <VictoryAxis dependentAxis tickFormat={t => `${t}%`} />
                     </VictoryChart>
                 </View>
             </ScrollView>

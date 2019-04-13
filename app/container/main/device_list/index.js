@@ -12,7 +12,11 @@ class DeviceList extends PureComponent {
         const logout = navigation.getParam('logout')
         return {
             title: '设备列表',
-            headerRight: <Button title="登出" onPress={logout} />
+            headerRight: (
+                <View style={{ marginRight: 12 }}>
+                    <Button title="登出" onPress={logout} />
+                </View>
+            )
         }
     }
 
